@@ -1,0 +1,76 @@
+####################
+# Rotation year $year_count #
+####################
+
+TILLAGE
+YEAR                $year_count
+DOY                 $fertilization_date
+TOOL                Kill_Crop
+DEPTH               0
+SOIL_DISTURB_RATIO  0
+MIXING_EFFICIENCY   0
+CROP_NAME           N/A
+FRAC_THERMAL_TIME   0.0
+KILL_EFFICIENCY     0.0
+GRAIN_HARVEST       0
+FORAGE_HARVEST      0.0
+
+FIXED_FERTILIZATION
+YEAR                $year_count
+DOY                 $fertilization_date
+SOURCE              32-00-00
+MASS                $fertilization_rate
+FORM                Solid
+METHOD              Incorporated
+LAYER               2
+C_Organic           0
+C_Charcoal          0
+N_Organic           0
+N_Charcoal          0
+N_NH4               1
+N_NO3               0
+P_Organic           0
+P_CHARCOAL          0
+P_INORGANIC         0
+K                   0
+S                   0
+
+TILLAGE
+YEAR                $year_count
+DOY                 $fertilization_date
+TOOL                Hand_hoeing
+DEPTH               0.11
+SOIL_DISTURB_RATIO  25
+MIXING_EFFICIENCY   0.33
+CROP_NAME           N/A
+FRAC_THERMAL_TIME   0.0
+KILL_EFFICIENCY     0.0
+GRAIN_HARVEST       0
+FORAGE_HARVEST      0.0
+
+PLANTING
+YEAR                $year_count
+DOY                 $start_planting_date
+END_DOY             $end_planting_date
+MAX_SMC             -999
+MIN_SMC             -999
+MIN_SOIL_TEMP       -999
+CROP                $crop_name
+USE_AUTO_IRR        0
+USE_AUTO_FERT       0
+FRACTION            0.67
+CLIPPING_START      1
+CLIPPING_END        366
+
+TILLAGE
+YEAR                $year_count
+DOY                 $tillage_date
+TOOL                Hand_hoeing_weeding
+DEPTH               0.06
+SOIL_DISTURB_RATIO  15
+MIXING_EFFICIENCY   0.25
+CROP_NAME           N/A
+FRAC_THERMAL_TIME   0.0
+KILL_EFFICIENCY     0.0
+GRAIN_HARVEST       0
+FORAGE_HARVEST      0.0

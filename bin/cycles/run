@@ -1,0 +1,48 @@
+#!/bin/bash
+#set -xe
+#unset http_proxy
+
+checkExitCode() {
+if [ $? -ne 0 ]; then
+    echo "Error"
+    exit 1;
+fi
+}
+
+BASEDIR=`dirname $0`
+
+. $BASEDIR/io.sh 2 7 2 "$@"
+
+# create Cycles input folder and copy base files
+rm -fr input* output
+
+mkdir -p input
+#copy the crop file to the input directory
+cp $INPUTS2 input/
+#extract the zipfile into the input directory
+unzip "$INPUTS1" -d input
+
+#obtain the file of weather and soil file
+pushd input
+weather=$(find . -name *.weather -printf "%f\n")
+soil=$(find . -name *.soil -printf "%f\n")
+popd
+#backup the input that we are going to use in the future
+cp -r input/ input_future/
+
+# run cycles baseline
+python3 $BASEDIR/cycles-wrapper.py --start-year $PARAMS1 --end-year $PARAMS2 --baseline True --crop $PARAMS3 --start-planting-date $PARAMS4 --end-planting-date 0 --fertilizer-rate 50 --weed-fraction $PARAMS6 --forcing $PARAMS7 --weather-file $weather ${INPUTS2#"data/"} $soil
+checkExitCode
+
+## clean up folders and prepare input folder for cycles run
+#mv input_future input
+#mv output/cycles-run/reinit.dat input/cycles.reinit
+#rm -rf output
+
+## # run cycles
+#python3 $BASEDIR/cycles-wrapper.py --start-year $PARAMS1 --end-year $PARAMS2 --baseline False --crop $PARAMS3 --start-planting-date $PARAMS4 --end-planting-date 0 --fertilizer-rate $PARAMS5 --weed-fraction $PARAMS6 --forcing $PARAMS7 --reinit-file input/cycles.reinit --weather-file $weather $INPUTS2 $soil
+#checkExitCode
+#
+## moving and renaming output data
+mv output/cycles-run/season.dat $OUTPUTS1
+mv output/cycles-run/summary.dat $OUTPUTS2

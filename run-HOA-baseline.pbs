@@ -1,0 +1,127 @@
+#!/bin/bash
+#PBS -l nodes=1:ppn=1
+#PBS -l walltime=48:00:00
+#PBS -l pmem=2gb
+#PBS -j oe
+#PBS -m abe
+#PBS -M yshi@psu.edu
+
+cd $PBS_O_WORKDIR
+echo "Job started on `hostname` at `date`"
+jobstart=`date +%s`
+
+module load python/3.6.8
+module load anaconda3/2020.07
+
+# Kenya
+python3 ./cycles_dojo.py --country Kenya --weed-fraction 0.0 --start-planting-day 15
+python3 ./cycles_dojo.py --country Kenya --weed-fraction 0.0 --start-planting-day 46
+python3 ./cycles_dojo.py --country Kenya --weed-fraction 0.0 --start-planting-day 74
+python3 ./cycles_dojo.py --country Kenya --weed-fraction 0.0 --start-planting-day 105
+python3 ./cycles_dojo.py --country Kenya --weed-fraction 0.0 --start-planting-day 135
+python3 ./cycles_dojo.py --country Kenya --weed-fraction 0.0 --start-planting-day 166
+python3 ./cycles_dojo.py --country Kenya --weed-fraction 0.0 --start-planting-day 196
+python3 ./cycles_dojo.py --country Kenya --weed-fraction 0.0 --start-planting-day 227
+python3 ./cycles_dojo.py --country Kenya --weed-fraction 0.0 --start-planting-day 258
+python3 ./cycles_dojo.py --country Kenya --weed-fraction 0.0 --start-planting-day 288
+python3 ./cycles_dojo.py --country Kenya --weed-fraction 0.0 --start-planting-day 319
+python3 ./cycles_dojo.py --country Kenya --weed-fraction 0.0 --start-planting-day 345
+# Ethiopia
+python3 ./cycles_dojo.py --country Ethiopia --weed-fraction 0.0 --start-planting-day 15
+python3 ./cycles_dojo.py --country Ethiopia --weed-fraction 0.0 --start-planting-day 46
+python3 ./cycles_dojo.py --country Ethiopia --weed-fraction 0.0 --start-planting-day 74
+python3 ./cycles_dojo.py --country Ethiopia --weed-fraction 0.0 --start-planting-day 105
+python3 ./cycles_dojo.py --country Ethiopia --weed-fraction 0.0 --start-planting-day 135
+python3 ./cycles_dojo.py --country Ethiopia --weed-fraction 0.0 --start-planting-day 166
+python3 ./cycles_dojo.py --country Ethiopia --weed-fraction 0.0 --start-planting-day 196
+python3 ./cycles_dojo.py --country Ethiopia --weed-fraction 0.0 --start-planting-day 227
+python3 ./cycles_dojo.py --country Ethiopia --weed-fraction 0.0 --start-planting-day 258
+python3 ./cycles_dojo.py --country Ethiopia --weed-fraction 0.0 --start-planting-day 288
+python3 ./cycles_dojo.py --country Ethiopia --weed-fraction 0.0 --start-planting-day 319
+python3 ./cycles_dojo.py --country Ethiopia --weed-fraction 0.0 --start-planting-day 345
+# South Sudan
+python3 ./cycles_dojo.py --country "South Sudan" --weed-fraction 0.0 --start-planting-day 15
+python3 ./cycles_dojo.py --country "South Sudan" --weed-fraction 0.0 --start-planting-day 46
+python3 ./cycles_dojo.py --country "South Sudan" --weed-fraction 0.0 --start-planting-day 74
+python3 ./cycles_dojo.py --country "South Sudan" --weed-fraction 0.0 --start-planting-day 105
+python3 ./cycles_dojo.py --country "South Sudan" --weed-fraction 0.0 --start-planting-day 135
+python3 ./cycles_dojo.py --country "South Sudan" --weed-fraction 0.0 --start-planting-day 166
+python3 ./cycles_dojo.py --country "South Sudan" --weed-fraction 0.0 --start-planting-day 196
+python3 ./cycles_dojo.py --country "South Sudan" --weed-fraction 0.0 --start-planting-day 227
+python3 ./cycles_dojo.py --country "South Sudan" --weed-fraction 0.0 --start-planting-day 258
+python3 ./cycles_dojo.py --country "South Sudan" --weed-fraction 0.0 --start-planting-day 288
+python3 ./cycles_dojo.py --country "South Sudan" --weed-fraction 0.0 --start-planting-day 319
+python3 ./cycles_dojo.py --country "South Sudan" --weed-fraction 0.0 --start-planting-day 345
+# Sudan
+python3 ./cycles_dojo.py --country Sudan --weed-fraction 0.0 --start-planting-day 15
+python3 ./cycles_dojo.py --country Sudan --weed-fraction 0.0 --start-planting-day 46
+python3 ./cycles_dojo.py --country Sudan --weed-fraction 0.0 --start-planting-day 74
+python3 ./cycles_dojo.py --country Sudan --weed-fraction 0.0 --start-planting-day 105
+python3 ./cycles_dojo.py --country Sudan --weed-fraction 0.0 --start-planting-day 135
+python3 ./cycles_dojo.py --country Sudan --weed-fraction 0.0 --start-planting-day 166
+python3 ./cycles_dojo.py --country Sudan --weed-fraction 0.0 --start-planting-day 196
+python3 ./cycles_dojo.py --country Sudan --weed-fraction 0.0 --start-planting-day 227
+python3 ./cycles_dojo.py --country Sudan --weed-fraction 0.0 --start-planting-day 258
+python3 ./cycles_dojo.py --country Sudan --weed-fraction 0.0 --start-planting-day 288
+python3 ./cycles_dojo.py --country Sudan --weed-fraction 0.0 --start-planting-day 319
+python3 ./cycles_dojo.py --country Sudan --weed-fraction 0.0 --start-planting-day 345
+# Uganda
+python3 ./cycles_dojo.py --country Uganda --weed-fraction 0.0 --start-planting-day 15
+python3 ./cycles_dojo.py --country Uganda --weed-fraction 0.0 --start-planting-day 46
+python3 ./cycles_dojo.py --country Uganda --weed-fraction 0.0 --start-planting-day 74
+python3 ./cycles_dojo.py --country Uganda --weed-fraction 0.0 --start-planting-day 105
+python3 ./cycles_dojo.py --country Uganda --weed-fraction 0.0 --start-planting-day 135
+python3 ./cycles_dojo.py --country Uganda --weed-fraction 0.0 --start-planting-day 166
+python3 ./cycles_dojo.py --country Uganda --weed-fraction 0.0 --start-planting-day 196
+python3 ./cycles_dojo.py --country Uganda --weed-fraction 0.0 --start-planting-day 227
+python3 ./cycles_dojo.py --country Uganda --weed-fraction 0.0 --start-planting-day 258
+python3 ./cycles_dojo.py --country Uganda --weed-fraction 0.0 --start-planting-day 288
+python3 ./cycles_dojo.py --country Uganda --weed-fraction 0.0 --start-planting-day 319
+python3 ./cycles_dojo.py --country Uganda --weed-fraction 0.0 --start-planting-day 345
+# Somalia
+python3 ./cycles_dojo.py --country Somalia --weed-fraction 0.0 --start-planting-day 15
+python3 ./cycles_dojo.py --country Somalia --weed-fraction 0.0 --start-planting-day 46
+python3 ./cycles_dojo.py --country Somalia --weed-fraction 0.0 --start-planting-day 74
+python3 ./cycles_dojo.py --country Somalia --weed-fraction 0.0 --start-planting-day 105
+python3 ./cycles_dojo.py --country Somalia --weed-fraction 0.0 --start-planting-day 135
+python3 ./cycles_dojo.py --country Somalia --weed-fraction 0.0 --start-planting-day 166
+python3 ./cycles_dojo.py --country Somalia --weed-fraction 0.0 --start-planting-day 196
+python3 ./cycles_dojo.py --country Somalia --weed-fraction 0.0 --start-planting-day 227
+python3 ./cycles_dojo.py --country Somalia --weed-fraction 0.0 --start-planting-day 258
+python3 ./cycles_dojo.py --country Somalia --weed-fraction 0.0 --start-planting-day 288
+python3 ./cycles_dojo.py --country Somalia --weed-fraction 0.0 --start-planting-day 319
+python3 ./cycles_dojo.py --country Somalia --weed-fraction 0.0 --start-planting-day 345
+# Eritrea
+python3 ./cycles_dojo.py --country Eritrea --weed-fraction 0.0 --start-planting-day 15
+python3 ./cycles_dojo.py --country Eritrea --weed-fraction 0.0 --start-planting-day 46
+python3 ./cycles_dojo.py --country Eritrea --weed-fraction 0.0 --start-planting-day 74
+python3 ./cycles_dojo.py --country Eritrea --weed-fraction 0.0 --start-planting-day 105
+python3 ./cycles_dojo.py --country Eritrea --weed-fraction 0.0 --start-planting-day 135
+python3 ./cycles_dojo.py --country Eritrea --weed-fraction 0.0 --start-planting-day 166
+python3 ./cycles_dojo.py --country Eritrea --weed-fraction 0.0 --start-planting-day 196
+python3 ./cycles_dojo.py --country Eritrea --weed-fraction 0.0 --start-planting-day 227
+python3 ./cycles_dojo.py --country Eritrea --weed-fraction 0.0 --start-planting-day 258
+python3 ./cycles_dojo.py --country Eritrea --weed-fraction 0.0 --start-planting-day 288
+python3 ./cycles_dojo.py --country Eritrea --weed-fraction 0.0 --start-planting-day 319
+python3 ./cycles_dojo.py --country Eritrea --weed-fraction 0.0 --start-planting-day 345
+# Djibouti
+python3 ./cycles_dojo.py --country Djibouti --weed-fraction 0.0 --start-planting-day 15
+python3 ./cycles_dojo.py --country Djibouti --weed-fraction 0.0 --start-planting-day 46
+python3 ./cycles_dojo.py --country Djibouti --weed-fraction 0.0 --start-planting-day 74
+python3 ./cycles_dojo.py --country Djibouti --weed-fraction 0.0 --start-planting-day 105
+python3 ./cycles_dojo.py --country Djibouti --weed-fraction 0.0 --start-planting-day 135
+python3 ./cycles_dojo.py --country Djibouti --weed-fraction 0.0 --start-planting-day 166
+python3 ./cycles_dojo.py --country Djibouti --weed-fraction 0.0 --start-planting-day 196
+python3 ./cycles_dojo.py --country Djibouti --weed-fraction 0.0 --start-planting-day 227
+python3 ./cycles_dojo.py --country Djibouti --weed-fraction 0.0 --start-planting-day 258
+python3 ./cycles_dojo.py --country Djibouti --weed-fraction 0.0 --start-planting-day 288
+python3 ./cycles_dojo.py --country Djibouti --weed-fraction 0.0 --start-planting-day 319
+python3 ./cycles_dojo.py --country Djibouti --weed-fraction 0.0 --start-planting-day 345
+
+jobend=`date +%s`
+echo -e "\nJob ended at `date`"
+dt=$((jobend - jobstart))
+ds=$((dt % 60))
+dm=$(((dt / 60) % 60))
+dh=$((dt / 3600))
+printf "Elapsed time %d:%02d:%02d" $dh $dm $ds
