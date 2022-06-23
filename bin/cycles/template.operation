@@ -22,7 +22,7 @@ SOURCE              32-00-00
 MASS                $fertilization_rate
 FORM                Solid
 METHOD              Incorporated
-LAYER               2
+DEPTH               0.1
 C_Organic           0
 C_Charcoal          0
 N_Organic           0
@@ -54,6 +54,7 @@ DOY                 $start_planting_date
 END_DOY             $end_planting_date
 MAX_SMC             -999
 MIN_SMC             -999
+MAX_SOIL_TEMP       -999
 MIN_SOIL_TEMP       -999
 CROP                $crop_name
 USE_AUTO_IRR        0

@@ -4,6 +4,7 @@ DOY                 $weed_planting_date
 END_DOY             -999
 MAX_SMC             -999
 MIN_SMC             -999
+MAX_SOIL_TEMP       -999
 MIN_SOIL_TEMP       -999
 CROP                C3_weed
 USE_AUTO_IRR        0
@@ -18,6 +19,7 @@ DOY                 $weed_planting_date
 END_DOY             -999
 MAX_SMC             -999
 MIN_SMC             0.0
+MAX_SOIL_TEMP       -999
 MIN_SOIL_TEMP       0.0
 CROP                C4_weed
 USE_AUTO_IRR        0

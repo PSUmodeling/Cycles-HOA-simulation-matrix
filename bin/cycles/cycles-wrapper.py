@@ -15,6 +15,32 @@ log = logging.getLogger()
 global basedir
 basedir = os.path.dirname(__file__)
 
+def convert_soil(soil):
+    """Convert soil files in database to latest Cycles format
+    """
+    # Read original soil file
+    with open(f"input/{soil}", "r") as fp:
+        soil_str = [line.strip() for line in fp if line.strip() and line.strip()[0] != "#"]
+
+    # Write new soil file
+    with open(f"input/{soil}", "w") as fp:
+        fp.write(soil_str[0] + "\n")    # Curve number line
+        fp.write(soil_str[1] + "\n")    # Slope line
+        fp.write(soil_str[2] + "\n")    # Total number of layers line
+        ## Header line
+        tmp = soil_str[3].split("\t")[0:8]
+        tmp.append("SON")   # Add SON header
+        tmp.extend(soil_str[3].split("\t")[8:10])
+        tmp.extend(["BYP_H", "BYP_V"])  # Add bypass headers
+        fp.write("\t".join(tmp) + "\n")
+        ## Layers
+        for kline in range(4, len(soil_str)):
+            tmp = soil_str[kline].split("\t")[0:8]
+            tmp.append("-999")  # Add SON
+            tmp.extend(soil_str[kline].split("\t")[8:10])    # Add NO3 and NH4
+            tmp.extend(["0.0", "0.0"])  # Add bypass parameters
+            fp.write("\t".join(tmp) + "\n")
+
 def _generate_inputs(
         prefix,
         start_year,
@@ -35,6 +61,8 @@ def _generate_inputs(
     global basedir
     ctrl_file = "cycles-run.ctrl"
     op_file = "cycles-run.operation"
+
+    convert_soil(soil_file)
 
     # process CTRL file
     with open(f"{basedir}/template.ctrl") as t_ctrl_file:

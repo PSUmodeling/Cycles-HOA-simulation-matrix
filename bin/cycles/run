@@ -44,5 +44,5 @@ checkExitCode
 #checkExitCode
 #
 ## moving and renaming output data
-mv output/cycles-run/season.dat $OUTPUTS1
-mv output/cycles-run/summary.dat $OUTPUTS2
+mv output/cycles-run/season.txt $OUTPUTS1
+mv output/cycles-run/summary.txt $OUTPUTS2
