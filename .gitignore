@@ -127,3 +127,11 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Cycles executable
+bin/cycles/Cycles
+
+# Input/Output
+input/
+outputs/
+tmp/
