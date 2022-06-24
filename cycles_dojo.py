@@ -42,6 +42,8 @@ def run_cycles(params):
         season_file = f"{TMP_DIR}/{sim}.season"
         summary_file = f"{TMP_DIR}/{sim}.summary"
 
+        print(f"{params['country']}, {index[0]}, {index[1]}, {index[2]} - {inputfile.replace('.soil_weather.zip', '')}")
+
         # create Cycles input folder and copy base files
         cmd = "rm -fr input* output"
         subprocess.run(cmd, shell=True)
