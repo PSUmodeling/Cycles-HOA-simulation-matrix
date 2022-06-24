@@ -1,13 +1,16 @@
 #!/usr/bin/env python3
 
 import argparse
+import glob
 import os
 import pandas as pd
+import shutil
 import subprocess
+import zipfile
 
 RESOURCES_FILE = "data/HOAResources.csv"
 CROPLAND_FILE = "data/HOACropland.csv"
-CYCLES_RUN_SCRIPT = "bin/cycles/run"
+CYCLES_RUN_DIR = "bin/cycles/"
 TMP_DIR = "tmp"
 OUTPUT_FILE = "outputs/cycles_results.csv"
 CROPS_FILE = "data/crops-horn-of-africa.crop"
@@ -38,26 +41,58 @@ def run_cycles(params):
         season_file = f"{TMP_DIR}/{inputfile}.season"
         summary_file = f"{TMP_DIR}/{inputfile}.summary"
 
-        # ** Run Cycles **
-        cmd = [CYCLES_RUN_SCRIPT,
-            '-i1', f"{SOIL_WEATHER_DIR}/{inputfile}",
-            '-i2', CROPS_FILE,
-            '-o1', season_file,
-            '-o2', summary_file,
-            '-p1', params["start_year"],
-            '-p2', params["end_year"],
-            '-p3', params["crop_name"],
-            '-p4', params["start_planting_day"],
-            '-p5', params["fertilizer_rate"],
-            '-p6', params["weed_fraction"],
-            '-p7', "False"
+        # create Cycles input folder and copy base files
+        cmd = "rm -fr input* output"
+        subprocess.run(cmd, shell=True)
+
+        os.makedirs("input", exist_ok=True)
+        #copy the crop file to the input directory
+        shutil.copy(CROPS_FILE, "input/")
+
+        #extract the zipfile into the input directory
+        with zipfile.ZipFile(f"{SOIL_WEATHER_DIR}/{inputfile}", "r") as zip_ref:
+            zip_ref.extractall("input")
+
+        #obtain the file of weather and soil file
+        weather = os.path.basename(glob.glob("input/*.weather")[0])
+        soil = os.path.basename(glob.glob("input/*.soil")[0])
+
+        # run cycles baseline
+        cmd = [
+            "python3",
+            f"{CYCLES_RUN_DIR}/cycles-wrapper.py",
+            "--start-year",
+            params["start_year"],
+            "--end-year",
+            params["end_year"],
+            "--baseline",
+            "True",
+            "--crop",
+            params["crop_name"],
+            "--start-planting-date",
+            params["start_planting_day"],
+            "--end-planting-date",
+            "0",
+            "--fertilizer-rate",
+            "50",
+            "--weed-fraction",
+            params["weed_fraction"],
+            "--forcing",
+            "False",
+            "--reinit-file",
+            "input/cycles.reinit",
+            "--weather-file",
+            weather,
+            os.path.basename(CROPS_FILE),
+            soil,
         ]
-        print(cmd)
-        try:
-            output = subprocess.run(cmd)
-        except subprocess.CalledProcessError as exc:
-            print("Status : FAIL", exc.returncode, exc.output)
-            continue
+        result = subprocess.run(cmd)
+        if result.returncode != 0:
+            print(f"Error")
+
+        ### moving and renaming output data
+        shutil.move("output/cycles-run/season.txt", season_file)
+        shutil.move("output/cycles-run/summary.txt", summary_file)
 
         # Load the output file
         exdf = get_dataframe_for_execution_result(season_file, index, params,
