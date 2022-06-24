@@ -1,12 +1,8 @@
 #!/usr/bin/env python3
 
-import json
-import pandas as pd
-import numpy as np
-import re
-import os
 import argparse
-
+import os
+import pandas as pd
 import subprocess
 
 RESOURCES_FILE = "data/HOAResources.csv"
@@ -19,10 +15,10 @@ SOIL_WEATHER_DIR = "../clouseau/data/soil_weather"
 
 def run_cycles(params):
     cropland_df = pd.read_csv(CROPLAND_FILE)
-    cropland_df.set_index(['country', 'admin1', 'admin2', 'admin3'], inplace=True)
+    cropland_df.set_index(["country", "admin1", "admin2", "admin3"], inplace=True)
 
     df = pd.read_csv(RESOURCES_FILE)
-    df.set_index(['country', 'admin1', 'admin2', 'admin3'], inplace=True)
+    df.set_index(["country", "admin1", "admin2", "admin3"], inplace=True)
     country_soil_points = df.loc[params["country"]]
 
     os.makedirs("tmp", exist_ok=True)
@@ -44,47 +40,47 @@ def run_cycles(params):
 
         # ** Run Cycles **
         cmd = [CYCLES_RUN_SCRIPT,
-               '-i1', f"{SOIL_WEATHER_DIR}/{inputfile}",
-               '-i2', CROPS_FILE,
-               '-o1', season_file,
-               '-o2', summary_file,
-               '-p1', params["start_year"],
-               '-p2', params["end_year"],
-               '-p3', params["crop_name"],
-               '-p4', params["start_planting_day"],
-               '-p5', params["fertilizer_rate"],
-               '-p6', params["weed_fraction"],
-               '-p7', "False"
-              ]
+            '-i1', f"{SOIL_WEATHER_DIR}/{inputfile}",
+            '-i2', CROPS_FILE,
+            '-o1', season_file,
+            '-o2', summary_file,
+            '-p1', params["start_year"],
+            '-p2', params["end_year"],
+            '-p3', params["crop_name"],
+            '-p4', params["start_planting_day"],
+            '-p5', params["fertilizer_rate"],
+            '-p6', params["weed_fraction"],
+            '-p7', "False"
+        ]
         print(cmd)
         try:
-              output = subprocess.run(cmd)
+            output = subprocess.run(cmd)
         except subprocess.CalledProcessError as exc:
-              print("Status : FAIL", exc.returncode, exc.output)
-              continue
+            print("Status : FAIL", exc.returncode, exc.output)
+            continue
 
         # Load the output file
         exdf = get_dataframe_for_execution_result(season_file, index, params,
-                                                ["grain_yield", "cum._n_stress", "actual_tr", "potential_tr"])
+            ["grain_yield", "cum._n_stress", "actual_tr", "potential_tr"])
 
         # Filter/Modify/Add Columns
-        exdf["crop_production"] = exdf["grain_yield"]*crop_fractional_area
-        exdf["water_stress"] = 1 - exdf["actual_tr"]/exdf["potential_tr"]
-        exdf = exdf.rename(columns={'cum._n_stress': 'nitrogen_stress'})
-        exdf = exdf.drop(['actual_tr', 'potential_tr'], axis = 1)
+        exdf["crop_production"] = exdf["grain_yield"] * crop_fractional_area
+        exdf["water_stress"] = 1.0 - exdf["actual_tr"] / exdf["potential_tr"]
+        exdf = exdf.rename(columns={"cum._n_stress": "nitrogen_stress"})
+        exdf = exdf.drop(["actual_tr", "potential_tr"], axis=1)
 
         # Write output
         if first:
             exdf.to_csv(OUTPUT_FILE, index=False)
             first = False
         else:
-            exdf.to_csv(OUTPUT_FILE, mode='a', header=False, index=False)
+            exdf.to_csv(OUTPUT_FILE, mode="a", header=False, index=False)
 
 
 def load_execution_result(outputloc):
-    df = pd.read_csv(outputloc, sep='\t', header=0, skiprows=[1], skipinitialspace=True)
-    df = df.rename(columns=lambda x: x.strip().lower().replace(' ', '_'))
-    df['date'] = pd.to_datetime(df['date'], format="%Y-%m-%d")
+    df = pd.read_csv(outputloc, sep="\t", header=0, skiprows=[1], skipinitialspace=True)
+    df = df.rename(columns=lambda x: x.strip().lower().replace(" ", "_"))
+    df["date"] = pd.to_datetime(df["date"], format="%Y-%m-%d")
     return df
 
 
@@ -95,7 +91,7 @@ def get_dataframe_for_execution_result(season_file, index, params, result_fields
     ndf = df.filter(result_fields, axis=1)
 
     # Insert timestamp
-    ndf.insert(0, "date", df['date']) #.values.astype(np.int64) // 10 ** 9)
+    ndf.insert(0, "date", df["date"]) #.values.astype(np.int64) // 10 ** 9)
 
     # Insert geospatial details
     ndf.insert(1, "country", params["country"])

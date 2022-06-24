@@ -2,15 +2,9 @@
 """Cycles Executor."""
 
 import argparse
-import csv
-import logging
 import os
-import shutil
 import subprocess
-import sys
 from string import Template
-
-log = logging.getLogger()
 
 global basedir
 basedir = os.path.dirname(__file__)
@@ -40,6 +34,7 @@ def convert_soil(soil):
             tmp.extend(soil_str[kline].split("\t")[8:10])    # Add NO3 and NH4
             tmp.extend(["0.0", "0.0"])  # Add bypass parameters
             fp.write("\t".join(tmp) + "\n")
+
 
 def _generate_inputs(
         prefix,
