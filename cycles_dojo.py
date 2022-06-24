@@ -38,8 +38,9 @@ def run_cycles(params):
 
         # Get the input/output files
         inputfile = point["filename"]
-        season_file = f"{TMP_DIR}/{inputfile}.season"
-        summary_file = f"{TMP_DIR}/{inputfile}.summary"
+        sim = f"{inputfile.replace('.soil_weather.zip', '')}.{params['crop_name']}.{params['start_planting_day']}"
+        season_file = f"{TMP_DIR}/{sim}.season"
+        summary_file = f"{TMP_DIR}/{sim}.summary"
 
         # create Cycles input folder and copy base files
         cmd = "rm -fr input* output"
